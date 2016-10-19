@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<employees>
+    <employee>
+        <name>Default Employee</name>
+        <login>default</login>
+        <password>default</password>
+    </employee>
+</employees>
