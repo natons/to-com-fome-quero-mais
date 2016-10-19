@@ -5,17 +5,36 @@
  */
 package tocomfome.gui;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import tocomfome.models.Employee;
+import tocomfome.parsers.EmployeeParser;
+
 /**
  *
  * @author fabio
  */
 public class UserLoginJFrame extends javax.swing.JFrame {
+    private static final String FILL_BOTH_FIELDS_MESSAGE = "Ambos os campos devem estar preenchidos";
+    private static final String INCORRECT_FIELDS = "Login incorreto ou senha incorreta";
+
+    private EmployeeParser employeeParser;
+
 
     /**
      * Creates new form UserLoginJFrame
      */
     public UserLoginJFrame() {
         initComponents();
+
+        try {
+            this.employeeParser = new EmployeeParser();
+        } catch(Exception ex) {
+            Logger.getLogger(UserLoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(0);
+        }
     }
 
     /**
@@ -46,6 +65,11 @@ public class UserLoginJFrame extends javax.swing.JFrame {
         jLabel3.setText("Password:");
 
         enterButton.setText("Entrar");
+        enterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enterButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,6 +123,44 @@ public class UserLoginJFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void enterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterButtonActionPerformed
+        final String login = this.userLogin.getText().trim();
+        final String password = String.copyValueOf(this.userPassword.getPassword()).trim();
+
+        if (login.length() > 0 && password.length() > 0) {
+            this.verifyUserAccess(login, password);
+        } else {
+            this.errorMessage.setText(FILL_BOTH_FIELDS_MESSAGE);
+        }
+    }//GEN-LAST:event_enterButtonActionPerformed
+
+    private void verifyUserAccess(final String login, final String password) {
+        List<Employee> employees = this.employeeParser.getEmployees();
+        boolean userHasAccess = false;
+
+        final Iterator<Employee> employeeIterator = employees.iterator();
+        while (employeeIterator.hasNext() && (userHasAccess != true)) {
+            final Employee employee = employeeIterator.next();
+
+            if (employee.getLogin().equals(login) && employee.getPassword().equals(password)) {
+                userHasAccess = true;
+            }
+        }
+
+        if (userHasAccess) {
+            this.displayCurrentOrdersJFrame();
+        } else {
+            this.errorMessage.setText(INCORRECT_FIELDS);
+        }
+    }
+
+    private void displayCurrentOrdersJFrame() {
+        this.errorMessage.setText("");
+        this.setVisible(false);
+
+        final CurrentOrdersJFrame currentOrdersJFrame = new CurrentOrdersJFrame(this);
+        currentOrdersJFrame.setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton enterButton;
