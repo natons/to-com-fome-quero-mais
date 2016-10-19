@@ -1,0 +1,6 @@
+*.tmp
+*.class
+*.swp
+/nbproject/private/
+/build/
+
