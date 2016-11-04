@@ -1,24 +1,53 @@
 package model;
 
 import java.util.List;
+import javax.persistence.*;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idUser;
+    private String name;
     private String login;
     private String password;
-    private String name;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idAddress_FK")
     private Address address;
+    @ManyToMany
+    @JoinTable(name = "User_Phone",
+            joinColumns = @JoinColumn(name = "idUser_FK"),
+            inverseJoinColumns = @JoinColumn(name = "idPhone_FK"))
     private List<Phone> phones;
 
     public User() {
     }
 
-    public User(String login, String password, String name, Address address, List<Phone> phones) {
+    public User(Integer idUser, String name, String login, String password, Address address, List<Phone> phones) {
+        this.idUser = idUser;
+        this.name = name;
         this.login = login;
         this.password = password;
-        this.name = name;
         this.address = address;
         this.phones = phones;
+    }
+
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLogin() {
@@ -37,14 +66,6 @@ public class User {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Address getAddress() {
         return address;
     }
@@ -60,23 +81,4 @@ public class User {
     public void setPhones(List<Phone> phones) {
         this.phones = phones;
     }
-
-    @Override
-    public String toString() {
-        return "User{" + "login=" + login + ", password=" + password + ", "
-                + "name=" + name + ", address=" + address + ", phones=" + toStringPhones() + '}';
-    }
-    
-    String toStringPhones(){
-        String toString = null;
-        for(Phone phone : phones){
-            toString += phone.toString() + "\t";
-        }
-        return toString;
-    }
-    
-    
-    
-    
-    
 }

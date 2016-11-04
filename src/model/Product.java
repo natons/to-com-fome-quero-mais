@@ -1,21 +1,46 @@
 package model;
 
 import java.util.Date;
+import javax.persistence.*;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idProduct;
+    
     private String name;
     private Double price;
+    
+    @Temporal(TemporalType.DATE)
     private Date expirationDate;
+    
+    @ManyToOne
     private Stock stock;
-
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idProduct_FK")
+    private Request request;    
+    
     public Product() {
     }
-    
-    public Product(String name, Double price, Date expirationDate, Stock stock) {
+
+    public Product(Integer idProduct, String name, Double price, Date expirationDate, Stock stock, Request request) {
+        this.idProduct = idProduct;
         this.name = name;
         this.price = price;
         this.expirationDate = expirationDate;
         this.stock = stock;
+        this.request = request;
+    }
+
+    public Integer getIdProduct() {
+        return idProduct;
+    }
+
+    public void setIdProduct(Integer idProduct) {
+        this.idProduct = idProduct;
     }
 
     public String getName() {
@@ -41,22 +66,22 @@ public class Product {
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
-    
-    public Stock getStock(){
+
+    public Stock getStock() {
         return stock;
     }
-    
-    public void setStock(Stock stock){
+
+    public void setStock(Stock stock) {
         this.stock = stock;
     }
-    
 
-    @Override
-    public String toString() {
-        return "Product{" + "name=" + name + ", price=" + price + ", expirationDate=" + expirationDate + '}';
+    public Request getRequest() {
+        return request;
     }
-    
-    
+
+    public void setRequest(Request request) {
+        this.request = request;
+    }
     
     
 }
