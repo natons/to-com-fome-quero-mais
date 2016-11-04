@@ -11,15 +11,28 @@ import javax.persistence.ManyToMany;
 class Phone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idPhone;
     private Integer DDD;
     private Integer number;
     @ManyToMany(mappedBy = "phones")
     private List<User> users;
 
-    public Phone(Integer DDD, Integer number) {
+    public Phone() {
+    }
+
+    public Phone(Integer idPhone, Integer DDD, Integer number, List<User> users) {
+        this.idPhone = idPhone;
         this.DDD = DDD;
         this.number = number;
+        this.users = users;
+    }
+
+    public Integer getIdPhone() {
+        return idPhone;
+    }
+
+    public void setIdPhone(Integer idPhone) {
+        this.idPhone = idPhone;
     }
 
     public Integer getDDD() {
@@ -38,10 +51,14 @@ class Phone {
         this.number = number;
     }
 
-    @Override
-    public String toString() {
-        return "Phone{" + "DDD=" + DDD + ", number=" + number + '}';
+    public List<User> getUsers() {
+        return users;
     }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+    
     
     
     

@@ -151,6 +151,7 @@ public class LoginScreen extends Application{
         client.setName("joao");
         client.setPassword("123");
         
+        
         new ClientDAO().saveClient(client);
     }
     
