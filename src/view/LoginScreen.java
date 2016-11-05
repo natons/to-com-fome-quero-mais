@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
-import mode.dao.ClientDAO;
+import model.dao.ClientDAO;
 import model.Client;
 import validator.Validator;
 
@@ -152,7 +152,9 @@ public class LoginScreen extends Application{
         client.setPassword("123");
         
         
+        
         new ClientDAO().saveClient(client);
+        
     }
     
     

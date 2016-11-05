@@ -1,11 +1,10 @@
 package model;
 
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 
 @Entity
-class Address implements Serializable {
+class Address{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
