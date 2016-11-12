@@ -2,34 +2,28 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="toComFome" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>model.Address</class>
-    <class>model.Card</class>
     <class>model.Client</class>
     <class>model.Dessert</class>
     <class>model.Dish</class>
     <class>model.Drink</class>
     <class>model.Employee</class>
-    <class>model.FormOfPayment</class>
     <class>model.Order</class>
-    <class>model.Phone</class>
+    <class>model.Payment</class>
     <class>model.Product</class>
     <class>model.Request</class>
     <class>model.Stock</class>
-    <class>model.User</class>
-    <validation-mode>NONE</validation-mode>
     <properties>
       <!--  propriedades do hibernate -->
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>
-    <property name="hibernate.hbm2ddl.auto" value="create-drop"/> 
-    <property name="hibernate.hbm2ddl.auto" value="create"/> 
-    <property name="hibernate.hbm2ddl.auto" value="update"/> 
-    <property name="hibernate.hbm2ddl.auto" value="validate"/> 
+      <property name="hibernate.hbm2ddl.auto" value="create"/>
+      <property name="eclipselink.logging.level" value="FINE"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/bdToComFome"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="root"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create-or-extend-tables"/>
     </properties>
   </persistence-unit>
 </persistence>

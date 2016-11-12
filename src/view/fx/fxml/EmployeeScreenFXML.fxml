@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="656.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="view.fx.controller.EmployeeScreenController">
+  <children>
+    <TabPane layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="656.0" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab text="Pedidos">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <ListView layoutX="14.0" layoutY="14.0" prefHeight="336.0" prefWidth="145.9998779296875" />
+                <Button layoutX="184.0" layoutY="129.0" mnemonicParsing="false" prefWidth="81.0" text="Inserir" />
+                <Button layoutX="184.0" layoutY="172.0" mnemonicParsing="false" text="Remover" />
+                <ListView layoutX="285.0" layoutY="14.0" prefHeight="336.0" prefWidth="145.00009999999747" />
+                <TextArea layoutX="440.0" layoutY="112.0" prefWidth="200.0" wrapText="true" />
+                <Label layoutX="440.0" layoutY="95.0" text="Observação:" />
+                <Button layoutX="440.0" layoutY="308.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="200.0" text="Confirmar pedido" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Caixa">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+  </children>
+</AnchorPane>

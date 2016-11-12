@@ -1,6 +1,5 @@
 package model;
 
-import java.util.List;
 import javax.persistence.*;
 
 @Entity
@@ -9,19 +8,19 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idStock;
     private Integer amount;
-    private Integer minAmount;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stock")
-    @JoinColumn(name = "idStock_FK")
-    private List<Product> products;
+    private Integer minimumAmount;
+    
+    @OneToOne(mappedBy = "stock")
+    private Product product;
 
     public Stock() {
-    }
+    }    
 
-    public Stock(Integer idStock, Integer amount, Integer minAmount, List<Product> products) {
+    public Stock(Integer idStock, Integer amount, Integer minimumAmount, Product product) {
         this.idStock = idStock;
         this.amount = amount;
-        this.minAmount = minAmount;
-        this.products = products;
+        this.minimumAmount = minimumAmount;
+        this.product = product;
     }
 
     public Integer getIdStock() {
@@ -40,23 +39,21 @@ public class Stock {
         this.amount = amount;
     }
 
-    public Integer getMinAmount() {
-        return minAmount;
+    public Integer getMinimumAmount() {
+        return minimumAmount;
     }
 
-    public void setMinAmount(Integer minAmount) {
-        this.minAmount = minAmount;
+    public void setMinimumAmount(Integer minimumAmount) {
+        this.minimumAmount = minimumAmount;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProduct(Product product) {
+        this.product = product;
     }
-    
-    
     
     
 }

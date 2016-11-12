@@ -1,11 +1,10 @@
 package model;
 
 import java.util.Date;
-import java.util.List;
 import javax.persistence.*;
 
-@Entity(name = "_Order")
-class Order {
+@Entity(name = "_ORDER")
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,28 +15,40 @@ class Order {
 
     private Double totalValue;
     private String observation;
-
-    @ManyToMany(mappedBy = "orders")
-    private List<Client> clients;
-
-    @ManyToOne
-    private FormOfPayment formOfPayment;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-    @JoinColumn(name = "idOrder_FK")
-    private List<Request> requests;
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "IDCLIENT_FK")
+    private Client client;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "IDPAYMENT_FK")
+    private Payment payment;
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "IDDESSERT_FK")
+    private Dessert dessert;
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "IDDISH_FK")
+    private Dish dish;
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "IDDRINK_FK")
+    private Drink drink;
 
     public Order() {
     }
 
-    public Order(Integer idOrder, Date dateOrder, Double totalValue, String observation, List<Client> clients, FormOfPayment formOfPayment, List<Request> requests) {
+    public Order(Integer idOrder, Date dateOrder, Double totalValue, String observation, Client client, Payment payment, Dessert dessert, Dish dish, Drink drink) {
         this.idOrder = idOrder;
         this.dateOrder = dateOrder;
         this.totalValue = totalValue;
         this.observation = observation;
-        this.clients = clients;
-        this.formOfPayment = formOfPayment;
-        this.requests = requests;
+        this.client = client;
+        this.payment = payment;
+        this.dessert = dessert;
+        this.dish = dish;
+        this.drink = drink;
     }
 
     public Integer getIdOrder() {
@@ -72,28 +83,46 @@ class Order {
         this.observation = observation;
     }
 
-    public List<Client> getClients() {
-        return clients;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClients(List<Client> clients) {
-        this.clients = clients;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public FormOfPayment getFormOfPayment() {
-        return formOfPayment;
+    public Payment getPayment() {
+        return payment;
     }
 
-    public void setFormOfPayment(FormOfPayment formOfPayment) {
-        this.formOfPayment = formOfPayment;
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
-    public List<Request> getRequests() {
-        return requests;
+    public Dessert getDessert() {
+        return dessert;
     }
 
-    public void setRequests(List<Request> requests) {
-        this.requests = requests;
+    public void setDessert(Dessert dessert) {
+        this.dessert = dessert;
     }
+
+    public Dish getDish() {
+        return dish;
+    }
+
+    public void setDish(Dish dish) {
+        this.dish = dish;
+    }
+
+    public Drink getDrink() {
+        return drink;
+    }
+
+    public void setDrink(Drink drink) {
+        this.drink = drink;
+    }
+    
+    
 
 }

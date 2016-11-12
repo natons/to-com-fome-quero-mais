@@ -1,42 +1,59 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@PrimaryKeyJoinColumn(name="idClient")
-public class Client extends User{
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "Client_Card",
-            joinColumns = @JoinColumn(name = "idClient_FK"),
-            inverseJoinColumns = @JoinColumn(name = "idCard_FK"))
-    private List<Card> cards;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "Client_Order",
-            joinColumns = @JoinColumn(name = "idClient_FK"),
-            inverseJoinColumns = @JoinColumn(name = "idOrder_FK"))
+public class Client{
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idClient;
+    private String name;
+    
+    @ManyToMany(mappedBy = "clients")
+    private List<Employee> employees;
+    
+    @OneToMany(mappedBy = "client")
     private List<Order> orders;
 
     public Client() {
+        employees = new ArrayList<>();
+        orders = new ArrayList<>();
     }
 
-    public Client(List<Card> cards, List<Order> orders) {
-        this.cards = cards;
+    public Client(Integer idClient, String name, List<Employee> employees, List<Order> orders) {
+        this.idClient = idClient;
+        this.name = name;
+        this.employees = employees;
         this.orders = orders;
     }
 
-    public Client(List<Card> cards, List<Order> orders, Integer idUser, String name, String login, String password, Address address, List<Phone> phones) {
-        super(idUser, name, login, password, address, phones);
-        this.cards = cards;
-        this.orders = orders;
+    public Client(String name) {
+        employees = new ArrayList<>();
+        orders = new ArrayList<>();
+        this.name = name;
     }
 
-    public List<Card> getCards() {
-        return cards;
+    public Integer getIdClient() {
+        return idClient;
     }
 
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
+    public void setIdClient(Integer idClient) {
+        this.idClient = idClient;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
     public List<Order> getOrders() {
@@ -45,6 +62,34 @@ public class Client extends User{
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+    
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public void addEmployee(Employee employee){
+        employees.add(employee);
+    }
+    
+    public void removeEmployee(Employee employee){
+        employees.remove(employee);
+    }
+    
+    public int getQuantityEmoloyees(){
+        return employees.size();
+    }
+    
+    public void addOrder(Order order){
+        orders.add(order);
+    }
+    
+    public void removeOrder(Order order){
+        orders.remove(order);
+    }
+    
+    public int getQuantityOrders(){
+        return orders.size();
     }
     
     

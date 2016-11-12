@@ -3,23 +3,22 @@ package model;
 import javax.persistence.*;
 
 @Entity
-class Request {
+public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idRequest;
     private Integer quantity;
-    @ManyToOne
-    private Order order;
-    @OneToOne(mappedBy = "request")
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "IDPRODUCT_FK")
     private Product product;
     
     public Request() {
     }
 
-    public Request(Integer idRequest, Integer quantity, Order order, Product product) {
+    public Request(Integer idRequest, Integer quantity, Product product) {
         this.idRequest = idRequest;
         this.quantity = quantity;
-        this.order = order;
         this.product = product;
     }
 
@@ -39,14 +38,6 @@ class Request {
         this.quantity = quantity;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
     public Product getProduct() {
         return product;
     }
@@ -54,6 +45,7 @@ class Request {
     public void setProduct(Product product) {
         this.product = product;
     }
+    
     
     
 }
