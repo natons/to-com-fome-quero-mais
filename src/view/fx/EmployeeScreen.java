@@ -38,6 +38,7 @@ public class EmployeeScreen extends Application{
         
         EmployeeScreenController controller = loader.getController();
         controller.setEmployee(employee);
+        controller.setStage(stage);
         
         Scene scene = new Scene(root);
     

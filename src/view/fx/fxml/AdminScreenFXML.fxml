@@ -18,21 +18,22 @@
     <Label layoutX="52.0" layoutY="127.0" text="Preço:" />
     <Label layoutX="52.0" layoutY="176.0" text="Estoque Mínimo:" />
     <Label layoutX="52.0" layoutY="221.0" text="Quantidade Disponível:" />
-    <TextField layoutX="212.0" layoutY="75.0" prefWidth="200.0" />
-    <TextField layoutX="212.0" layoutY="121.0" prefWidth="80.0" />
-    <TextField layoutX="212.0" layoutY="170.0" prefWidth="80.0" />
-    <TextField layoutX="212.0" layoutY="215.0" prefWidth="80.0" />
-    <Button layoutX="166.0" layoutY="268.0" mnemonicParsing="false" prefWidth="109.0" text="Cadastrar" />
-    <ListView layoutX="135.0" layoutY="367.0" prefHeight="223.0" prefWidth="240.0" />
+    <TextField id="lbNameProduct" fx:id="tfNameProduct" layoutX="212.0" layoutY="75.0" prefWidth="200.0" />
+    <TextField id="lbPriceProduct" fx:id="tfPriceProduct" layoutX="212.0" layoutY="121.0" prefWidth="80.0" />
+    <TextField id="lbMinimumAmoun" fx:id="tfMinimumAmount" layoutX="212.0" layoutY="170.0" prefWidth="80.0" />
+    <TextField fx:id="tfAmount" layoutX="212.0" layoutY="215.0" prefWidth="80.0" />
+    <Button layoutX="166.0" layoutY="268.0" mnemonicParsing="false" onAction="#onActionSaveProduct" prefWidth="109.0" text="Cadastrar" />
+    <ListView fx:id="listProducts" layoutX="135.0" layoutY="367.0" onMouseClicked="#onMouseClickProducts" prefHeight="223.0" prefWidth="240.0" />
     <Label font="$x1" layoutX="220.0" layoutY="339.0" text="Produtos" />
     <Label layoutX="434.0" layoutY="440.0" text="Estoque Mínimo:" />
     <Label layoutX="434.0" layoutY="485.0" text="Quantidade Disponível:" />
-    <Button layoutX="543.0" layoutY="533.0" mnemonicParsing="false" text="Salvar" />
-    <TextField layoutX="613.0" layoutY="437.0" prefWidth="80.0" />
-    <TextField layoutX="613.0" layoutY="482.0" prefWidth="80.0" />
+    <Button layoutX="543.0" layoutY="533.0" mnemonicParsing="false" onAction="#onActionSaveStock" text="Salvar" />
+    <TextField fx:id="tfSelectedMinimumAmount" layoutX="613.0" layoutY="437.0" prefWidth="80.0" />
+    <TextField fx:id="tfSelectedAmount" layoutX="613.0" layoutY="482.0" prefWidth="80.0" />
     <Separator layoutX="-26.0" layoutY="313.0" prefHeight="30.0" prefWidth="849.0" />
     <Separator layoutX="434.0" layoutY="0.0" orientation="VERTICAL" prefHeight="327.0" />
-    <ListView layoutX="517.0" layoutY="75.0" prefHeight="223.0" prefWidth="240.0" />
+    <ListView fx:id="listProductsAlert" layoutX="517.0" layoutY="75.0" onMouseClicked="#onMouseClickProductsAlert" prefHeight="223.0" prefWidth="240.0" />
     <Label font="$x1" layoutX="564.0" layoutY="32.0" text="Produtos Em Falta" />
+    <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#logOut" text="Sair" />
   </children>
 </AnchorPane>

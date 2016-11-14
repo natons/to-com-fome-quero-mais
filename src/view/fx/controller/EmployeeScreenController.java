@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import model.Client;
 import model.Dessert;
@@ -30,8 +31,11 @@ import model.Order;
 import model.Payment;
 import model.Product;
 import model.Request;
+import view.fx.LoginScreen;
 
 public class EmployeeScreenController implements Initializable{
+    
+    private Stage stage;
     
     //tab1
     
@@ -105,6 +109,14 @@ public class EmployeeScreenController implements Initializable{
         init();
     }
 
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+    
     
     public void setEmployee(Employee employee){
         this.employee = employee;
@@ -562,6 +574,11 @@ public class EmployeeScreenController implements Initializable{
         lbTotalValue.setText("RS 0,00");
         
         JOptionPane.showMessageDialog(null, "Pedido gravado com sucesso!");
+    }
+    
+    @FXML
+    public void logOut() throws Exception{
+        new LoginScreen().start(getStage());
     }
     
     

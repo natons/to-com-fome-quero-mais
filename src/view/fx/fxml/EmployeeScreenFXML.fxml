@@ -9,46 +9,47 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="832.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="view.fx.controller.EmployeeScreenController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="832.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="view.fx.controller.EmployeeScreenController">
   <children>
-    <TabPane layoutX="0.0" layoutY="0.0" prefHeight="606.0" prefWidth="832.0" tabClosingPolicy="UNAVAILABLE">
+    <TabPane layoutX="0.0" layoutY="0.0" prefHeight="640.0" prefWidth="832.0" tabClosingPolicy="UNAVAILABLE">
       <tabs>
         <Tab text="Pedidos">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="501.0" prefWidth="697.0">
               <children>
-                <ListView fx:id="listDrink" layoutX="14.0" layoutY="34.0" onMouseClicked="#onMouseClickDrink" prefHeight="150.0" prefWidth="159.0" />
-                <Button layoutX="263.0" layoutY="261.0" mnemonicParsing="false" onAction="#onActionInsert" prefWidth="81.0" text="Inserir">
+                <ListView fx:id="listDrink" layoutX="12.0" layoutY="62.0" onMouseClicked="#onMouseClickDrink" prefHeight="150.0" prefWidth="159.0" />
+                <Button layoutX="261.0" layoutY="289.0" mnemonicParsing="false" onAction="#onActionInsert" prefWidth="81.0" text="Inserir">
                   <font>
                     <Font size="13.0" fx:id="x1" />
                   </font>
                 </Button>
-                <Button font="$x1" layoutX="263.0" layoutY="298.0" mnemonicParsing="false" onAction="#onActionRemove" text="Remover" />
-                <ListView fx:id="listOrder" layoutX="371.0" layoutY="34.0" onMouseClicked="#onMouseClickOrder" prefHeight="522.0" prefWidth="131.0" />
-                <TextArea fx:id="taObservation" layoutX="594.0" layoutY="278.0" prefWidth="200.0" wrapText="true" />
-                <Label layoutX="594.0" layoutY="252.0" text="Observação:" />
-                <Button layoutX="594.0" layoutY="460.0" mnemonicParsing="false" onAction="#onActionConfirmOrder" prefHeight="43.0" prefWidth="200.0" text="Confirmar pedido" />
-                <ListView fx:id="listDish" layoutX="14.0" layoutY="218.0" onMouseClicked="#onMouseClickDish" prefHeight="150.0" prefWidth="159.0" />
-                <ListView fx:id="listDessert" layoutX="14.0" layoutY="406.0" onMouseClicked="#onMouseClickDessert" prefHeight="150.0" prefWidth="159.0" />
-                <Label layoutX="46.0" layoutY="378.0" text="Sobremesas">
+                <Button font="$x1" layoutX="261.0" layoutY="326.0" mnemonicParsing="false" onAction="#onActionRemove" text="Remover" />
+                <ListView fx:id="listOrder" layoutX="369.0" layoutY="62.0" onMouseClicked="#onMouseClickOrder" prefHeight="522.0" prefWidth="131.0" />
+                <TextArea fx:id="taObservation" layoutX="592.0" layoutY="306.0" prefWidth="200.0" wrapText="true" />
+                <Label layoutX="592.0" layoutY="280.0" text="Observação:" />
+                <Button layoutX="592.0" layoutY="488.0" mnemonicParsing="false" onAction="#onActionConfirmOrder" prefHeight="43.0" prefWidth="200.0" text="Confirmar pedido" />
+                <ListView fx:id="listDish" layoutX="12.0" layoutY="246.0" onMouseClicked="#onMouseClickDish" prefHeight="150.0" prefWidth="159.0" />
+                <ListView fx:id="listDessert" layoutX="12.0" layoutY="434.0" onMouseClicked="#onMouseClickDessert" prefHeight="150.0" prefWidth="159.0" />
+                <Label layoutX="44.0" layoutY="406.0" text="Sobremesas">
                   <font>
                     <Font size="16.0" fx:id="x2" />
                   </font>
                 </Label>
-                <Label font="$x2" layoutX="70.0" layoutY="193.0" text="Pratos" />
-                <Label font="$x2" layoutX="63.0" layoutY="6.0" text="Bebidas" />
-                <Label font="$x2" layoutX="409.0" layoutY="10.0" text="Pedido" />
-                <ListView fx:id="listDrinkPrice" layoutX="172.0" layoutY="34.0" onMouseClicked="#onMouseClickDrinkPrice" prefHeight="150.0" prefWidth="55.0" />
-                <ListView fx:id="listDishPrice" layoutX="172.0" layoutY="218.0" onMouseClicked="#onMouseClickDishPrice" prefHeight="150.0" prefWidth="55.0" />
-                <ListView fx:id="listDessertPrice" layoutX="172.0" layoutY="406.0" onMouseClicked="#onMouseClickDessertPrice" prefHeight="150.0" prefWidth="55.0" />
-                <ListView fx:id="listProductQuantity" layoutX="501.0" layoutY="34.0" onMouseClicked="#onMouseClickProductQuantity" prefHeight="522.0" prefWidth="62.0" />
-                <Label font="$x2" layoutX="189.0" layoutY="6.0" text="R$" />
-                <Label font="$x2" layoutX="517.0" layoutY="10.0" text="Qtd" />
-                <Label font="$x2" layoutX="594.0" layoutY="9.0" text="Nome do Cliente:" />
-                <Label font="$x2" layoutX="594.0" layoutY="79.0" text="Apelido:" />
-                <TextField id="nameClient" fx:id="tfNameClient" layoutX="594.0" layoutY="34.0" prefHeight="31.0" prefWidth="200.0" />
-                <TextField id="nicknameClient" fx:id="tfNicknameClient" layoutX="594.0" layoutY="109.0" prefHeight="31.0" prefWidth="200.0" />
-                <Button font="$x2" layoutX="625.0" layoutY="150.0" mnemonicParsing="false" text="Último Pedido" />
+                <Label font="$x2" layoutX="68.0" layoutY="221.0" text="Pratos" />
+                <Label font="$x2" layoutX="61.0" layoutY="34.0" text="Bebidas" />
+                <Label font="$x2" layoutX="407.0" layoutY="38.0" text="Pedido" />
+                <ListView fx:id="listDrinkPrice" layoutX="170.0" layoutY="62.0" onMouseClicked="#onMouseClickDrinkPrice" prefHeight="150.0" prefWidth="55.0" />
+                <ListView fx:id="listDishPrice" layoutX="170.0" layoutY="246.0" onMouseClicked="#onMouseClickDishPrice" prefHeight="150.0" prefWidth="55.0" />
+                <ListView fx:id="listDessertPrice" layoutX="170.0" layoutY="434.0" onMouseClicked="#onMouseClickDessertPrice" prefHeight="150.0" prefWidth="55.0" />
+                <ListView fx:id="listProductQuantity" layoutX="499.0" layoutY="62.0" onMouseClicked="#onMouseClickProductQuantity" prefHeight="522.0" prefWidth="62.0" />
+                <Label font="$x2" layoutX="187.0" layoutY="34.0" text="R$" />
+                <Label font="$x2" layoutX="515.0" layoutY="38.0" text="Qtd" />
+                <Label font="$x2" layoutX="592.0" layoutY="37.0" text="Nome do Cliente:" />
+                <Label font="$x2" layoutX="592.0" layoutY="107.0" text="Apelido:" />
+                <TextField id="nameClient" fx:id="tfNameClient" layoutX="592.0" layoutY="62.0" prefHeight="31.0" prefWidth="200.0" />
+                <TextField id="nicknameClient" fx:id="tfNicknameClient" layoutX="592.0" layoutY="137.0" prefHeight="31.0" prefWidth="200.0" />
+                <Button font="$x2" layoutX="623.0" layoutY="178.0" mnemonicParsing="false" text="Último Pedido" />
+                <Button layoutX="12.0" layoutY="4.0" mnemonicParsing="false" onAction="#logOut" prefWidth="62.0" text="Sair" />
               </children>
             </AnchorPane>
           </content>
@@ -61,10 +62,10 @@
                 <ListView fx:id="listNicknameClient" layoutX="161.0" layoutY="39.0" onMouseClicked="#onMouseClickNicknameClient" prefHeight="517.0" prefWidth="130.0" />
                 <ListView id="listOrderQuantity" fx:id="listOrderCaixa" layoutX="360.0" layoutY="40.0" prefHeight="271.0" prefWidth="140.0" />
                 <ListView id="listQuantityProduct" fx:id="listProductQuantityCaixa" layoutX="499.0" layoutY="40.0" prefHeight="271.0" prefWidth="69.0" />
-                <ComboBox layoutX="598.0" layoutY="261.0" prefWidth="208.0"  fx:id="cbFormOfPayment">
+                <ComboBox fx:id="cbFormOfPayment" layoutX="598.0" layoutY="261.0" prefWidth="208.0">
                   <items>
-                    <FXCollections fx:factory="observableArrayList"> 
-                      <String fx:value="Selecione forma de pagamento"/>
+                    <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="Selecione forma de pagamento" />
                       <String fx:value="Dinheiro" />
                       <String fx:value="Cartão de crédito" />
                       <String fx:value="Débito à vista" />
@@ -83,7 +84,7 @@
                 </Label>
                 <TextArea fx:id="taObservationCaixa" editable="false" layoutX="360.0" layoutY="365.0" prefHeight="190.0" prefWidth="208.0" wrapText="true" />
                 <Label font="$x2" layoutX="360.0" layoutY="340.0" text="Observação:" />
-                <Button font="$x2" layoutX="598.0" layoutY="379.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="208.0" onAction="#onActionConfirmPayment" text="Confirmar Pagamento" />
+                <Button font="$x2" layoutX="598.0" layoutY="379.0" mnemonicParsing="false" onAction="#onActionConfirmPayment" prefHeight="53.0" prefWidth="208.0" text="Confirmar Pagamento" />
               </children>
             </AnchorPane>
           </content>

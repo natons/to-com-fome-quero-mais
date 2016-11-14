@@ -7,10 +7,9 @@ import javax.persistence.Query;
 import model.Product;
 import model.connection.ConnectionFactory;
 
-public class ProductDAO implements DAO<Product>{
-    
+public class ProductDAO implements DAO<Product> {
+
     private static final String QUERY_FIND_ALL = "SELECT p FROM Product p";
-    
 
     @Override
     public Product findForObject(Product object) {
@@ -31,12 +30,16 @@ public class ProductDAO implements DAO<Product>{
     }
 
     @Override
-    public void save(Product object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void save(Product product) {
+        EntityManager manager = new ConnectionFactory().getConnection();
+        manager.getTransaction().begin();
+        manager.merge(product);
+        manager.getTransaction().commit();
+        manager.close();
     }
-    
+
     public void save(List<Product> products) {
-        for(Product product : products){
+        for (Product product : products) {
             EntityManager manager = new ConnectionFactory().getConnection();
             manager.getTransaction().begin();
             manager.merge(product);
@@ -49,18 +52,18 @@ public class ProductDAO implements DAO<Product>{
     public List<Product> getAllElements() {
         EntityManager manager = new ConnectionFactory().getConnection();
         Query query = manager.createQuery(QUERY_FIND_ALL, Product.class);
-        
+
         List<Product> products = null;
-        try{
+        try {
             products = (List<Product>) query.getResultList();
-        } catch (NoResultException e){
+        } catch (NoResultException e) {
             System.out.println("Elementos não foram encontrados no BD!");
             return null;
         } finally {
             manager.close();
         }
-        
+
         return products;
     }
-    
+
 }
