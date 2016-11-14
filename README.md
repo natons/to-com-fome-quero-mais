@@ -31,4 +31,4 @@ Obs: __é obrigatório a criação de um empregado, para que se possa entrar no 
 administrador, use login: "teste" e senha: "123" (este empregado default é criado na execução do script.sql).__
 
 ### Diagrama para melhor representação do Sistema
-![alt tag](https://gitlab.com/natons/EP2/tree/master/doc/diagram.jpg)
+<img src="https://gitlab.com/natons/EP2/tree/master/doc/diagram.jpg" alt="">
