@@ -182,7 +182,7 @@ public class AdminScreenController implements Initializable{
     
     private Product getProduct(String name){
         for(Product product : products){
-            if(name.equals(product.getName()))
+            if(name != null && name.equals(product.getName()))
                 return product;
         }
         return new Product();

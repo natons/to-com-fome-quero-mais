@@ -379,16 +379,17 @@ public class EmployeeScreenController implements Initializable {
         List<Dish> dishes = new ArrayList<>();
         for (Product iterator : products) {
 
-            if (itemWasChosen(listOrder.getItems(), iterator.getName())) {
+            if (itemWasChosen((ObservableList<String>) listOrder.getItems(), iterator.getName())) {
                 Dessert dessert = iterator.getDessert();
                 if (dessert != null) {
                     Request request = new Request();
                     request.setProduct(iterator);
                     int index = getIndexList(listProductQuantity.getItems(), iterator.getName());
                     request.setQuantity(Integer.parseInt((String) listProductQuantity.getItems().get(index)));
-                    dessert.getProductDessert().addRequest(request);
+                    
+                    iterator.addRequest(request);
+                    dessert.setProductDessert(iterator);
                     desserts.add(dessert);
-                    iterator.getRequests().add(request);
                 }
 
                 Drink drink = iterator.getDrink();
@@ -397,9 +398,9 @@ public class EmployeeScreenController implements Initializable {
                     request.setProduct(iterator);
                     int index = getIndexList(listProductQuantity.getItems(), iterator.getName());
                     request.setQuantity(Integer.parseInt((String) listProductQuantity.getItems().get(index)));
-                    drink.getProductDrink().addRequest(request);
-                    drinks.add(iterator.getDrink());
-                    iterator.getRequests().add(request);
+                    iterator.addRequest(request);
+                    drink.setProductDrink(iterator);
+                    drinks.add(drink);
                 }
 
                 Dish dish = iterator.getDish();
@@ -408,9 +409,10 @@ public class EmployeeScreenController implements Initializable {
                     request.setProduct(iterator);
                     int index = getIndexList(listProductQuantity.getItems(), iterator.getName());
                     request.setQuantity(Integer.parseInt((String) listProductQuantity.getItems().get(index)));
-                    dish.getProductDish().addRequest(request);
-                    dishes.add(iterator.getDish());
-                    iterator.getRequests().add(request);
+                    
+                    iterator.addRequest(request);
+                    dish.setProductDish(iterator);
+                    dishes.add(dish);
                 }
 
             }
@@ -426,12 +428,7 @@ public class EmployeeScreenController implements Initializable {
     }
     
     private boolean itemWasChosen(ObservableList<String> list, String item) {
-        for (String it : list) {
-            if (it.equals(item)) {
-                return true;
-            }
-        }
-        return false;
+        return list.stream().anyMatch((it) -> (it.equals(item)));
     }
 
     private int getIndexList(ObservableList items, String name) {
@@ -598,14 +595,13 @@ public class EmployeeScreenController implements Initializable {
         Employee employee = new ControllerEmployee().getEmployee(this.employee.getLogin(), this.employee.getPassword());
 
         client.getLastEmployee().setIdEmployee(employee.getIdEmployee());
-        client.getLastOrder().setClient(client);
         
+        
+        saveRequests(client);
         new ControllerClient().save(client);
+        
 
         new ControllerProduct().save(products);
-        products.forEach((product) ->{
-            new ControllerRequest().save(product.getRequests());
-        });
         products = new ControllerProduct().getProducts();
 
         clients.remove(getClient((String) listNicknameClient.getSelectionModel().getSelectedItem()));
@@ -622,6 +618,32 @@ public class EmployeeScreenController implements Initializable {
     @FXML
     public void logOut() throws Exception {
         new LoginScreen().start(getStage());
+    }
+
+    private void saveRequests(Client client) {
+        List<Dessert> desserts = client.getLastOrder().getDesserts();
+
+        List<Dish> dishes = client.getLastOrder().getDishes();
+
+        List<Drink> drinks = client.getLastOrder().getDrinks();
+
+        if (desserts != null) {
+            for (Dessert dessert : desserts) {
+                new ControllerRequest().save(dessert.getProductDessert().getRequests());
+            }
+        }
+
+        if (dishes != null) {
+            for (Dish dish : dishes) {
+                new ControllerRequest().save(dish.getProductDish().getRequests());
+            }
+        }
+
+        if (drinks != null) {
+            for (Drink drink : drinks) {                
+                new ControllerRequest().save(drink.getProductDrink().getRequests());
+            }
+        }
     }
 
 }

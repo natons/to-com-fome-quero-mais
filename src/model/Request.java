@@ -9,7 +9,7 @@ public class Request {
     private Integer idRequest;
     private Integer quantity;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "IDPRODUCT_FK")
     private Product product;
     
