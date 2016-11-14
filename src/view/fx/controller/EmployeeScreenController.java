@@ -6,6 +6,7 @@ import controller.ControllerDish;
 import controller.ControllerDrink;
 import controller.ControllerEmployee;
 import controller.ControllerProduct;
+import controller.ControllerRequest;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -100,6 +101,7 @@ public class EmployeeScreenController implements Initializable {
 
     @FXML
     private ComboBox cbFormOfPayment;
+    
 
     public EmployeeScreenController() {
         clients = new ArrayList<>();
@@ -386,6 +388,7 @@ public class EmployeeScreenController implements Initializable {
                     request.setQuantity(Integer.parseInt((String) listProductQuantity.getItems().get(index)));
                     dessert.getProductDessert().addRequest(request);
                     desserts.add(dessert);
+                    iterator.getRequests().add(request);
                 }
 
                 Drink drink = iterator.getDrink();
@@ -396,6 +399,7 @@ public class EmployeeScreenController implements Initializable {
                     request.setQuantity(Integer.parseInt((String) listProductQuantity.getItems().get(index)));
                     drink.getProductDrink().addRequest(request);
                     drinks.add(iterator.getDrink());
+                    iterator.getRequests().add(request);
                 }
 
                 Dish dish = iterator.getDish();
@@ -406,6 +410,7 @@ public class EmployeeScreenController implements Initializable {
                     request.setQuantity(Integer.parseInt((String) listProductQuantity.getItems().get(index)));
                     dish.getProductDish().addRequest(request);
                     dishes.add(iterator.getDish());
+                    iterator.getRequests().add(request);
                 }
 
             }
@@ -419,7 +424,7 @@ public class EmployeeScreenController implements Initializable {
         client.addOrder(order);
         clients.add(client);
     }
-
+    
     private boolean itemWasChosen(ObservableList<String> list, String item) {
         for (String it : list) {
             if (it.equals(item)) {
@@ -485,10 +490,11 @@ public class EmployeeScreenController implements Initializable {
             for (Dessert dessert : desserts) {
                 items.add(dessert.getProductDessert().getName());
                 quantity.add(dessert.getProductDessert().getLastRequest().getQuantity().toString());
-                dessert.getProductDessert().getStock().setAmount(
-                        dessert.getProductDessert().getStock().getAmount()
-                        - dessert.getProductDessert().getLastRequest().getQuantity()
-                );
+                
+                getProduct(dessert.getProductDessert().getIdProduct()).getStock().setAmount(
+                        getProduct(dessert.getProductDessert().getIdProduct()).getStock().getAmount() -
+                        dessert.getProductDessert().getLastRequest().getQuantity()
+                          );
             }
         }
 
@@ -496,12 +502,11 @@ public class EmployeeScreenController implements Initializable {
             for (Dish dish : dishes) {
                 items.add(dish.getProductDish().getName());
                 quantity.add(dish.getProductDish().getLastRequest().getQuantity().toString());
-                System.out.println("AMOUNT" + dish.getProductDish().getStock().getAmount());
-                dish.getProductDish().getStock().setAmount(
-                        dish.getProductDish().getStock().getAmount()
-                        - dish.getProductDish().getLastRequest().getQuantity()
-                );
-                System.out.println(dish.getProductDish().getStock().getAmount());
+                
+                getProduct(dish.getProductDish().getIdProduct()).getStock().setAmount(
+                        getProduct(dish.getProductDish().getIdProduct()).getStock().getAmount() -
+                        dish.getProductDish().getLastRequest().getQuantity()
+                          );
             }
         }
 
@@ -509,10 +514,11 @@ public class EmployeeScreenController implements Initializable {
             for (Drink drink : drinks) {
                 items.add(drink.getProductDrink().getName());
                 quantity.add(drink.getProductDrink().getLastRequest().getQuantity().toString());
-                drink.getProductDrink().getStock().setAmount(
-                        drink.getProductDrink().getStock().getAmount()
-                        - drink.getProductDrink().getLastRequest().getQuantity()
-                );
+                
+                getProduct(drink.getProductDrink().getIdProduct()).getStock().setAmount(
+                        getProduct(drink.getProductDrink().getIdProduct()).getStock().getAmount() -
+                        drink.getProductDrink().getLastRequest().getQuantity()
+                          );
             }
         }
 
@@ -521,6 +527,15 @@ public class EmployeeScreenController implements Initializable {
 
     }
 
+    private Product getProduct(int id){
+        for(Product product: products){
+            if(product.getIdProduct() == id)
+                return product;
+        }
+        
+        return new Product();
+    }
+    
     private String getTotalValue() {
 
         List<Dessert> desserts = getClient((String) listNicknameClient.getSelectionModel().getSelectedItem())
@@ -583,10 +598,14 @@ public class EmployeeScreenController implements Initializable {
         Employee employee = new ControllerEmployee().getEmployee(this.employee.getLogin(), this.employee.getPassword());
 
         client.getLastEmployee().setIdEmployee(employee.getIdEmployee());
-
+        client.getLastOrder().setClient(client);
+        
         new ControllerClient().save(client);
 
         new ControllerProduct().save(products);
+        products.forEach((product) ->{
+            new ControllerRequest().save(product.getRequests());
+        });
         products = new ControllerProduct().getProducts();
 
         clients.remove(getClient((String) listNicknameClient.getSelectionModel().getSelectedItem()));

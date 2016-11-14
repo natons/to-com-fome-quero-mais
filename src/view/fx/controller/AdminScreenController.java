@@ -1,5 +1,8 @@
 package view.fx.controller;
 
+import controller.ControllerDessert;
+import controller.ControllerDish;
+import controller.ControllerDrink;
 import controller.ControllerProduct;
 import controller.ControllerStock;
 import java.net.URL;
@@ -9,16 +12,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Product;
 import model.Stock;
+import validator.Validator;
 import view.fx.LoginScreen;
 
 public class AdminScreenController implements Initializable{
     
     private Stage stage;
+    
+    @FXML
+    private Label lbMessage;
     
     @FXML
     private TextField tfNameProduct;
@@ -31,6 +40,9 @@ public class AdminScreenController implements Initializable{
     
     @FXML
     private TextField tfAmount;
+    
+    @FXML
+    private ComboBox cbCategory;
     
     @FXML
     private ListView listProductsAlert;
@@ -62,10 +74,26 @@ public class AdminScreenController implements Initializable{
     
     @FXML
     public void onActionSaveProduct(){
-        saveProduct();
-        clearTextFields();
-        initListProducts();
-        initListProductsAlert();
+        if(validateCamps()){
+            saveProduct();
+            clearTextFields();
+            initListProducts();
+            initListProductsAlert();
+        } else {
+            lbMessage.setVisible(true);
+            lbMessage.setText("Todos os campos devem estar preenchidos!");
+        }
+    }
+    
+    public boolean validateCamps(){
+        if(!Validator.validatorString(tfNameProduct.getText()) ||
+                !Validator.validatorString(tfMinimumAmount.getText()) ||
+                !Validator.validatorString(tfAmount.getText()) ||
+                !Validator.validatorString(tfPriceProduct.getText()) ||
+                cbCategory.getItems().isEmpty())
+            return false;
+        
+        return true;
     }
     
     @FXML
@@ -88,11 +116,27 @@ public class AdminScreenController implements Initializable{
         tfPriceProduct.clear();
         tfAmount.clear();
         tfMinimumAmount.clear();
+        lbMessage.setText("");
+        lbMessage.setVisible(false);
+        
     }
 
     private void saveProduct() {
-        new ControllerProduct().save(
+        
+        switch((String)cbCategory.getSelectionModel().getSelectedItem()){
+            case "Prato":
+                new ControllerDish().save(
                 tfNameProduct.getText(),tfPriceProduct.getText(),tfAmount.getText(),tfMinimumAmount.getText());
+                break;
+            case "Bebida":
+                new ControllerDrink().save(
+                tfNameProduct.getText(),tfPriceProduct.getText(),tfAmount.getText(),tfMinimumAmount.getText());
+                break;
+            case "Sobremesa":
+                new ControllerDessert().save(
+                tfNameProduct.getText(),tfPriceProduct.getText(),tfAmount.getText(),tfMinimumAmount.getText());
+                break;
+        }
     }
 
     private void init() {

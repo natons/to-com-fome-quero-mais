@@ -2,6 +2,7 @@
 
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -9,31 +10,59 @@
 
 <AnchorPane id="AnchorPane" prefHeight="604.0" prefWidth="822.9999000000025" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="view.fx.controller.AdminScreenController">
   <children>
-    <Label layoutX="147.0" layoutY="32.0" text="Cadastrar Produto">
-      <font>
-        <Font size="16.0" fx:id="x1" />
-      </font>
-    </Label>
-    <Label layoutX="52.0" layoutY="81.0" text="Nome:" />
-    <Label layoutX="52.0" layoutY="127.0" text="Preço:" />
-    <Label layoutX="52.0" layoutY="176.0" text="Estoque Mínimo:" />
-    <Label layoutX="52.0" layoutY="221.0" text="Quantidade Disponível:" />
-    <TextField id="lbNameProduct" fx:id="tfNameProduct" layoutX="212.0" layoutY="75.0" prefWidth="200.0" />
-    <TextField id="lbPriceProduct" fx:id="tfPriceProduct" layoutX="212.0" layoutY="121.0" prefWidth="80.0" />
-    <TextField id="lbMinimumAmoun" fx:id="tfMinimumAmount" layoutX="212.0" layoutY="170.0" prefWidth="80.0" />
-    <TextField fx:id="tfAmount" layoutX="212.0" layoutY="215.0" prefWidth="80.0" />
-    <Button layoutX="166.0" layoutY="268.0" mnemonicParsing="false" onAction="#onActionSaveProduct" prefWidth="109.0" text="Cadastrar" />
-    <ListView fx:id="listProducts" layoutX="135.0" layoutY="367.0" onMouseClicked="#onMouseClickProducts" prefHeight="223.0" prefWidth="240.0" />
-    <Label font="$x1" layoutX="220.0" layoutY="339.0" text="Produtos" />
-    <Label layoutX="434.0" layoutY="440.0" text="Estoque Mínimo:" />
-    <Label layoutX="434.0" layoutY="485.0" text="Quantidade Disponível:" />
-    <Button layoutX="543.0" layoutY="533.0" mnemonicParsing="false" onAction="#onActionSaveStock" text="Salvar" />
-    <TextField fx:id="tfSelectedMinimumAmount" layoutX="613.0" layoutY="437.0" prefWidth="80.0" />
-    <TextField fx:id="tfSelectedAmount" layoutX="613.0" layoutY="482.0" prefWidth="80.0" />
-    <Separator layoutX="-26.0" layoutY="313.0" prefHeight="30.0" prefWidth="849.0" />
-    <Separator layoutX="434.0" layoutY="0.0" orientation="VERTICAL" prefHeight="327.0" />
-    <ListView fx:id="listProductsAlert" layoutX="517.0" layoutY="75.0" onMouseClicked="#onMouseClickProductsAlert" prefHeight="223.0" prefWidth="240.0" />
-    <Label font="$x1" layoutX="564.0" layoutY="32.0" text="Produtos Em Falta" />
-    <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#logOut" text="Sair" />
+    <TabPane layoutX="0.0" layoutY="0.0" prefHeight="604.0" prefWidth="823.0" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab text="Produtos">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="164.0" prefWidth="511.9998779296875">
+              <children>
+                <Label layoutX="130.0" layoutY="29.0" text="Cadastrar Produto">
+                  <font>
+                    <Font size="16.0" fx:id="x1" />
+                  </font>
+                </Label>
+                <Label layoutX="50.0" layoutY="74.0" text="Nome:" />
+                <Label layoutX="50.0" layoutY="114.0" text="Preço:" />
+                <Label layoutX="50.0" layoutY="197.0" text="Estoque Mínimo:" />
+                <Label layoutX="50.0" layoutY="154.0" text="Quantidade Disponível:" />
+                <TextField id="lbNameProduct" fx:id="tfNameProduct" layoutX="223.0" layoutY="64.0" prefWidth="169.0" />
+                <TextField id="lbPriceProduct" fx:id="tfPriceProduct" layoutX="223.0" layoutY="108.0" prefWidth="80.0" />
+                <TextField id="lbMinimumAmoun" fx:id="tfMinimumAmount" layoutX="223.0" layoutY="191.0" prefWidth="80.0" />
+                <TextField fx:id="tfAmount" layoutX="223.0" layoutY="151.0" prefWidth="80.0" />
+                <Button layoutX="170.0" layoutY="264.0" mnemonicParsing="false" onAction="#onActionSaveProduct" prefWidth="109.0" text="Cadastrar" />
+                <ListView fx:id="listProducts" layoutX="93.0" layoutY="333.0" onMouseClicked="#onMouseClickProducts" prefHeight="223.0" prefWidth="268.0" />
+                <Label font="$x1" layoutX="192.0" layoutY="305.0" text="Produtos" />
+                <Label layoutX="399.0" layoutY="444.0" text="Estoque Mínimo:" />
+                <Label layoutX="400.0" layoutY="379.0" text="Quantidade Disponível:" />
+                <Button layoutX="508.0" layoutY="485.0" mnemonicParsing="false" onAction="#onActionSaveStock" text="Salvar" />
+                <TextField fx:id="tfSelectedMinimumAmount" layoutX="590.0" layoutY="441.0" prefWidth="80.0" />
+                <TextField fx:id="tfSelectedAmount" layoutX="590.0" layoutY="376.0" prefWidth="80.0" />
+                <Separator layoutX="-1.0" layoutY="284.0" prefHeight="30.0" prefWidth="823.0" />
+                <Separator layoutX="410.0" layoutY="0.0" orientation="VERTICAL" prefHeight="277.0" />
+                <ListView fx:id="listProductsAlert" layoutX="494.0" layoutY="58.0" onMouseClicked="#onMouseClickProductsAlert" prefHeight="223.0" prefWidth="218.0" />
+                <Label font="$x1" layoutX="539.0" layoutY="29.0" text="Produtos Em Falta" />
+                <Button layoutX="12.0" layoutY="4.0" mnemonicParsing="false" onAction="#logOut" prefWidth="71.0" text="Sair" />
+                <Label fx:id="lbMessage" layoutX="53.0" layoutY="58.0" prefWidth="339.0" text="" textFill="#cc0000" visible="false" />
+                <Label layoutX="50.0" layoutY="233.0" text="Categoria:" />
+                <ComboBox fx:id="cbCategory" layoutX="227.0" layoutY="231.0" prefWidth="165.0">
+                  <items>
+                    <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="Prato" />
+                      <String fx:value="Bebida" />
+                      <String fx:value="Sobremesa" />
+                    </FXCollections>
+                  </items>
+                </ComboBox>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Funcionarios">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
   </children>
 </AnchorPane>

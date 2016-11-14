@@ -90,7 +90,7 @@ public class Client{
         employees.remove(employee);
     }
     
-    public int getQuantityEmoloyees(){
+    public int getQuantityEmployees(){
         return employees.size();
     }
     
