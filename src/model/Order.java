@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 @Entity(name = "_ORDER")
@@ -24,31 +25,28 @@ public class Order {
     @JoinColumn(name = "IDPAYMENT_FK")
     private Payment payment;
     
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "IDDESSERT_FK")
-    private Dessert dessert;
+    @OneToMany(mappedBy = "order")
+    private List<Dessert> desserts;
     
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "IDDISH_FK")
-    private Dish dish;
+    @OneToMany(mappedBy = "order")
+    private List<Dish> dishes;
     
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "IDDRINK_FK")
-    private Drink drink;
+    @OneToMany(mappedBy = "order")
+    private List<Drink> drinks;
 
     public Order() {
     }
 
-    public Order(Integer idOrder, Date dateOrder, Double totalValue, String observation, Client client, Payment payment, Dessert dessert, Dish dish, Drink drink) {
+    public Order(Integer idOrder, Date dateOrder, Double totalValue, String observation, Client client, Payment payment, List<Dessert> desserts, List<Dish> dishes, List<Drink> drinks) {
         this.idOrder = idOrder;
         this.dateOrder = dateOrder;
         this.totalValue = totalValue;
         this.observation = observation;
         this.client = client;
         this.payment = payment;
-        this.dessert = dessert;
-        this.dish = dish;
-        this.drink = drink;
+        this.desserts = desserts;
+        this.dishes = dishes;
+        this.drinks = drinks;
     }
 
     public Integer getIdOrder() {
@@ -99,30 +97,41 @@ public class Order {
         this.payment = payment;
     }
 
-    public Dessert getDessert() {
-        return dessert;
+    public List<Dessert> getDesserts() {
+        return desserts;
     }
 
-    public void setDessert(Dessert dessert) {
-        this.dessert = dessert;
+    public void setDesserts(List<Dessert> desserts) {
+        this.desserts = desserts;
     }
 
-    public Dish getDish() {
-        return dish;
+    public List<Dish> getDishes() {
+        return dishes;
     }
 
-    public void setDish(Dish dish) {
-        this.dish = dish;
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
     }
 
-    public Drink getDrink() {
-        return drink;
+    public List<Drink> getDrinks() {
+        return drinks;
     }
 
-    public void setDrink(Drink drink) {
-        this.drink = drink;
+    public void setDrinks(List<Drink> drinks) {
+        this.drinks = drinks;
+    }
+
+    public void addDessert(Dessert dessert){
+        desserts.add(dessert);
     }
     
+    public void addDish(Dish dish){
+        dishes.add(dish);
+    }
+    
+    public void addDrink(Drink drink){
+        drinks.add(drink);
+    }
     
 
 }

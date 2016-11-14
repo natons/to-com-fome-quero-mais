@@ -16,12 +16,15 @@ public class Product {
     @Temporal(TemporalType.DATE)
     private Date expirationDate;
     
-    @OneToOne(mappedBy = "product")
+    @OneToOne(mappedBy = "productDessert")
     private Dessert dessert;
-    @OneToOne(mappedBy = "product")
-    private Dish dish;
-    @OneToOne(mappedBy = "product")
+    
+    @OneToOne(mappedBy = "productDrink")
     private Drink drink;
+    
+    @OneToOne(mappedBy = "productDish")
+    private Dish dish;
+    
     
     @OneToMany(mappedBy = "product")
     private List<Request> requests;

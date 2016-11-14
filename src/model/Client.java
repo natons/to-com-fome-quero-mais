@@ -11,6 +11,7 @@ public class Client{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idClient;
     private String name;
+    private String nickname;
     
     @ManyToMany(mappedBy = "clients")
     private List<Employee> employees;
@@ -23,9 +24,10 @@ public class Client{
         orders = new ArrayList<>();
     }
 
-    public Client(Integer idClient, String name, List<Employee> employees, List<Order> orders) {
+    public Client(Integer idClient, String name, String nickname, List<Employee> employees, List<Order> orders) {
         this.idClient = idClient;
         this.name = name;
+        this.nickname = nickname;
         this.employees = employees;
         this.orders = orders;
     }
@@ -52,6 +54,14 @@ public class Client{
         this.name = name;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+    
     public List<Employee> getEmployees() {
         return employees;
     }
@@ -90,6 +100,13 @@ public class Client{
     
     public int getQuantityOrders(){
         return orders.size();
+    }
+    
+    public Order getLastOrder(){
+        if(orders.isEmpty())
+            return new Order();
+        
+        return orders.get(orders.size() - 1);
     }
     
     

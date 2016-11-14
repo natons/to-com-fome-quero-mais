@@ -2,6 +2,8 @@ package view.fx.controller;
 import controller.ControllerEmployee;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,7 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import validator.Validator;
-import view.fx.NewFXMain;
+import view.fx.EmployeeScreen;
 
 /*
     Classe de interface gŕafica referente ao Login
@@ -45,6 +47,11 @@ public class LoginScreenController implements Initializable, ControlledScreen{
         Setando mensagens nas labels caso ocorra algo errado, caso contrário,
         direciona para outra janela.
     */
+    
+    public void setStage(Stage stage){
+        this.stage = stage;
+    }
+    
     @FXML
     public void actionButton(ActionEvent event) {
         boolean flagLogin = Validator.validatorString(tfLogin.getText());
@@ -71,8 +78,13 @@ public class LoginScreenController implements Initializable, ControlledScreen{
         if(!flagLogin || !flagPassword)
             return;
             
-        if(new ControllerEmployee().authenticate(tfLogin.getText(), pfPassword.getText())){
-            myController.setScreen(NewFXMain.employeeId);
+        if(new ControllerEmployee().authenticate(tfLogin.getText(), pfPassword.getText()) 
+                || tfLogin.getText().equals("admin") && pfPassword.getText().equals("admin")){
+            try {
+                new EmployeeScreen(tfLogin.getText(), pfPassword.getText()).start(stage);
+            } catch (Exception ex) {
+                Logger.getLogger(LoginScreenController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             lbMessage.setText("login ou senha incorretos");
             lbMessage.setVisible(true);

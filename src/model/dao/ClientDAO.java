@@ -1,11 +1,11 @@
 package model.dao;
 
+import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import model.Client;
 import model.connection.ConnectionFactory;
 
-public class ClientDAO implements InterfaceDAO<Client>{
+public class ClientDAO implements DAO<Client>{
     
     @Override
     public void save(Client client){
@@ -31,6 +31,11 @@ public class ClientDAO implements InterfaceDAO<Client>{
 
     @Override
     public Client findForObject(Client object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Client> getAllElements() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -1,12 +1,13 @@
 package model.dao;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import model.Employee;
 import model.connection.ConnectionFactory;
 import javax.persistence.NoResultException;
 
-public class EmployeeDAO implements InterfaceDAO<Employee>{
+public class EmployeeDAO implements DAO<Employee>{
     
     private static final String QUERY_FIND = "SELECT e FROM Employee e WHERE e.login = :login AND e.password = :password";
     
@@ -56,5 +57,10 @@ public class EmployeeDAO implements InterfaceDAO<Employee>{
         }
         
         return employeeBD;
+    }
+
+    @Override
+    public List<Employee> getAllElements() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

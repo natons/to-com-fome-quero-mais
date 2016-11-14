@@ -1,14 +1,12 @@
 package model;
 
-import java.util.Date;
-import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -18,20 +16,22 @@ public class Drink {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDrink;
     
-    @OneToMany(mappedBy = "drink")
-    private List<Order> orders;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "IDORDER_FK")
+    private Order order;
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "IDPRODUCT_FK")
-    private Product product;
+    private Product productDrink;
+    
     
     public Drink() {
     }
 
-    public Drink(Integer idDrink, List<Order> orders, Product product) {
+    public Drink(Integer idDrink, Order order, Product product) {
         this.idDrink = idDrink;
-        this.orders = orders;
-        this.product = product;
+        this.order = order;
+        this.productDrink = product;
     }
 
     public Integer getIdDrink() {
@@ -42,34 +42,20 @@ public class Drink {
         this.idDrink = idDrink;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public Product getProductDrink() {
+        return productDrink;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setProductDrink(Product productDrink) {
+        this.productDrink = productDrink;
     }
 
-    public Product getProduct() {
-        return product;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
-    
-    
-    public void addOrder(Order order){
-        orders.add(order);
-    }
-    
-    public void removeOrder(Order order){
-        orders.remove(order);
-    }
-    
-    public int getQuantityOrders(){
-        return orders.size();
-    }
-    
 }

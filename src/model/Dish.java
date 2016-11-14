@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.*;
 
 @Entity
@@ -11,33 +9,22 @@ public class Dish{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDish;
     
-    @OneToMany(mappedBy = "dish")
-    private List<Order> orders;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "IDORDER_FK")
+    private Order order;
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "IDPRODUCT_FK")
-    private Product product;
+    private Product productDish;
+    
     
     public Dish() {
-        orders = new ArrayList<>();
     }
 
-    public Dish(Integer idDish, List<Order> orders, Product product) {
+    public Dish(Integer idDish, Order order, Product product) {
         this.idDish = idDish;
-        this.orders = orders;
-        this.product = product;
-    }
-    
-    public void addOrder(Order order){
-        orders.add(order);
-    }
-    
-    public void removeOrder(Order order){
-        orders.remove(order);
-    }
-    
-    public int getQuantityOrders(){
-        return orders.size();
+        this.order = order;
+        this.productDish = product;
     }
 
     public Integer getIdDish() {
@@ -48,21 +35,23 @@ public class Dish{
         this.idDish = idDish;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public Product getProductDish() {
+        return productDish;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setProductDish(Product productDish) {
+        this.productDish = productDish;
     }
 
-    public Product getProduct() {
-        return product;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setOrder(Order order) {
+        this.order = order;
     }
+    
+    
     
     
     

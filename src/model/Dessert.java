@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -18,22 +18,24 @@ public class Dessert{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDissert;
     
-    @OneToMany(mappedBy = "dessert")
-    private List<Order> orders;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "IDORDER_FK")
+    private Order order;
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "IDPRODUCT_FK")
-    private Product product;
+    private Product productDessert;
+    
 
     public Dessert() {
-        orders = new ArrayList<>();
     }
 
-    public Dessert(Integer idDissert, List<Order> orders, Product product) {
+    public Dessert(Integer idDissert, Order order, Product product) {
         this.idDissert = idDissert;
-        this.orders = orders;
-        this.product = product;
+        this.order = order;
+        this.productDessert = product;
     }
+
 
     public Integer getIdDissert() {
         return idDissert;
@@ -43,34 +45,20 @@ public class Dessert{
         this.idDissert = idDissert;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public Product getProductDessert() {
+        return productDessert;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setProductDessert(Product productDessert) {
+        this.productDessert = productDessert;
     }
 
-    public Product getProduct() {
-        return product;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setOrder(Order order) {
+        this.order = order;
     }
-    
-    public void addOrder(Order order){
-        orders.add(order);
-    }
-    
-    public void removeOrder(Order order){
-        orders.remove(order);
-    }
-    
-    public int getQuantityOrders(){
-        return orders.size();
-    }
-    
-    
     
 }

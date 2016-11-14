@@ -3,7 +3,7 @@ package test;
 import controller.ControllerEmployee;
 import junit.framework.TestCase;
 
-public class Emoployee extends TestCase{
+public class Employee extends TestCase{
      public void testAuthenticate(){
         String login = "teste";
         String password = "123";
