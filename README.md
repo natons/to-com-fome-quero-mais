@@ -4,10 +4,11 @@ Este projeto consiste em uma aplicação desktop para um restaurante, utilizando
 
 * Mais detalhes na wiki [home](https://gitlab.com/OOFGA-2016-1/EP2/wikis/home)
 
-#Pré-Requisitos
+### Pré-Requisitos
 
 * 1 - Ter um banco de dados em sua máquina (MySQLServer)
-* 2 - Criar um banco com o seguinte nome __bdToComFome__
+* 2 - Possuir uma conexão com usuário "root" senha "root" (Caso seja diferente, deve-se atualizar no programa o arquivo persistence.xml, com o usuário e senha de seu banco de dados)
+* 3 - Criar um banco com o seguinte nome __bdToComFome__
 
 ### Como Compilar e Executar
 
