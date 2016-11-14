@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  *
  * @author natan
  */
-public class NewFXMain extends Application {
+public class MainScreen extends Application {
     
     public static String loginId = "main";
     public static String loginFile = "../fxml/LoginScreenFXML.fxml";
@@ -27,7 +27,7 @@ public class NewFXMain extends Application {
         try {
             new LoginScreen().start(primaryStage);
         } catch (Exception ex) {
-            Logger.getLogger(NewFXMain.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
