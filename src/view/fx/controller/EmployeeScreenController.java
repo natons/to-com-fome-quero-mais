@@ -1,8 +1,10 @@
 package view.fx.controller;
 
+import controller.ControllerClient;
 import controller.ControllerDessert;
 import controller.ControllerDish;
 import controller.ControllerDrink;
+import controller.ControllerEmployee;
 import controller.ControllerProduct;
 import java.net.URL;
 import java.util.ArrayList;
@@ -13,15 +15,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javax.swing.JOptionPane;
 import model.Client;
 import model.Dessert;
 import model.Dish;
 import model.Drink;
 import model.Employee;
 import model.Order;
+import model.Payment;
 import model.Product;
 import model.Request;
 
@@ -62,6 +68,7 @@ public class EmployeeScreenController implements Initializable{
     @FXML
     private TextArea taObservation;
     
+    
     private List<Product> products;
     private List<Client> clients;
     private Employee employee;
@@ -76,6 +83,17 @@ public class EmployeeScreenController implements Initializable{
     @FXML
     private ListView listOrderCaixa;
     
+    @FXML
+    private ListView listProductQuantityCaixa;
+    
+    @FXML
+    private TextArea taObservationCaixa;
+    
+    @FXML
+    private Label lbTotalValue;
+    
+    @FXML
+    private ComboBox cbFormOfPayment;
     
     public EmployeeScreenController() {
         products = new ControllerProduct().getProducts();
@@ -295,6 +313,23 @@ public class EmployeeScreenController implements Initializable{
                 listNicknameClient.getItems().add(client.getNickname());
             }
         }
+        
+        JOptionPane.showMessageDialog(null, "Pedido Enviado com sucesso!");
+        clearCamps();
+    }
+    
+    public void clearCamps(){
+        tfNameClient.clear();
+        tfNicknameClient.clear();
+        listDessert.getItems().clear();
+        listDessertPrice.getItems().clear();
+        listDish.getItems().clear();
+        listDishPrice.getItems().clear();
+        listDrink.getItems().clear();
+        listDrinkPrice.getItems().clear();
+        listOrder.getItems().clear();
+        listProductQuantity.getItems().clear();
+        taObservation.clear();
     }
 
     private void createOrderClient() {
@@ -319,7 +354,6 @@ public class EmployeeScreenController implements Initializable{
                     int index = getIndexList(listProductQuantity.getItems(), iterator.getName());
                     request.setQuantity(Integer.parseInt((String) listProductQuantity.getItems().get(index)));
                     dessert.getProductDessert().addRequest(request);
-                    dessert.setProductDessert(iterator);
                     desserts.add(dessert);
                 }
                 
@@ -331,7 +365,6 @@ public class EmployeeScreenController implements Initializable{
                     int index = getIndexList(listProductQuantity.getItems(), iterator.getName());
                     request.setQuantity(Integer.parseInt((String) listProductQuantity.getItems().get(index)));
                     drink.getProductDrink().addRequest(request);
-                    drink.setProductDrink(iterator);
                     drinks.add(iterator.getDrink());
                 }
                 
@@ -343,7 +376,6 @@ public class EmployeeScreenController implements Initializable{
                     int index = getIndexList(listProductQuantity.getItems(), iterator.getName());
                     request.setQuantity(Integer.parseInt((String) listProductQuantity.getItems().get(index)));
                     dish.getProductDish().addRequest(request);
-                    dish.setProductDish(iterator);
                     dishes.add(iterator.getDish());
                 }
                 
@@ -369,7 +401,7 @@ public class EmployeeScreenController implements Initializable{
 
     private int getIndexList(ObservableList items, String name) {
         for(int i = 0; i < items.size(); i++){
-            if(items.get(i).equals(name))
+            if(listOrder.getItems().get(i).equals(name))
                 return i;
         }
         
@@ -379,32 +411,20 @@ public class EmployeeScreenController implements Initializable{
     @FXML
     public void onMouseClickNameClient(){
         listNicknameClient.getSelectionModel().select(listNameClient.getSelectionModel().getSelectedIndex());
-        ObservableList<String> items = FXCollections.observableArrayList();
-        
-        List<Dessert> desserts = getClient((String) listNicknameClient.getSelectionModel().getSelectedItem())
-                .getLastOrder().getDesserts();
-        
-        List<Dish> dishes = getClient((String) listNicknameClient.getSelectionModel().getSelectedItem())
-                .getLastOrder().getDishes();
-        
-        List<Drink> drinks = getClient((String) listNicknameClient.getSelectionModel().getSelectedItem())
-                .getLastOrder().getDrinks();
-        
-        if(desserts != null)
-        for(Dessert dessert : desserts){
-            items.add(dessert.getProductDessert().getName());
-        }
-        
-        if(dishes != null)
-        for(Dish dish : dishes){
-           items.add(dish.getProductDish().getName());
-        }
-        
-        if(drinks != null)
-        for(Drink drink : drinks){
-            items.add(drink.getProductDrink().getName());
-        }
-        listOrderCaixa.setItems(items);
+        insertItemsListView();
+        taObservationCaixa.setText(
+                getClient((String) listNicknameClient.getSelectionModel().getSelectedItem()).getLastOrder().getObservation());
+        lbTotalValue.setText(getTotalValue());
+    }
+    
+    @FXML
+    public void onMouseClickNicknameClient(){
+        listNameClient.getSelectionModel().select(listNicknameClient.getSelectionModel().getSelectedIndex());
+        insertItemsListView();
+        taObservationCaixa.setText(
+                getClient((String) listNicknameClient.getSelectionModel().getSelectedItem()).getLastOrder().getObservation());
+        lbTotalValue.setText(getTotalValue());
+
     }
     
     private Client getClient(String nickname){
@@ -417,5 +437,132 @@ public class EmployeeScreenController implements Initializable{
         return new Client();
     }
 
+    private void insertItemsListView() {
+        ObservableList<String> items = FXCollections.observableArrayList();
+        ObservableList<String> quantity = FXCollections.observableArrayList();
+        
+        List<Dessert> desserts = getClient((String) listNicknameClient.getSelectionModel().getSelectedItem())
+                .getLastOrder().getDesserts();
+        
+        List<Dish> dishes = getClient((String) listNicknameClient.getSelectionModel().getSelectedItem())
+                .getLastOrder().getDishes();
+        
+        List<Drink> drinks = getClient((String) listNicknameClient.getSelectionModel().getSelectedItem())
+                .getLastOrder().getDrinks();
+        
+        if(desserts != null)
+        for(Dessert dessert : desserts){
+           items.add(dessert.getProductDessert().getName());
+           quantity.add(dessert.getProductDessert().getLastRequest().getQuantity().toString());
+           dessert.getProductDessert().getStock().setAmount(
+                   dessert.getProductDessert().getStock().getAmount() -
+                   dessert.getProductDessert().getLastRequest().getQuantity()
+                   );
+        }
+        
+        if(dishes != null)
+        for(Dish dish : dishes){
+           items.add(dish.getProductDish().getName());
+           quantity.add(dish.getProductDish().getLastRequest().getQuantity().toString());
+           System.out.println("AMOUNT" + dish.getProductDish().getStock().getAmount());
+           dish.getProductDish().getStock().setAmount(
+                   dish.getProductDish().getStock().getAmount() -
+                   dish.getProductDish().getLastRequest().getQuantity()
+                   );
+           System.out.println(dish.getProductDish().getStock().getAmount());
+        }
+        
+        if(drinks != null)
+        for(Drink drink : drinks){
+            items.add(drink.getProductDrink().getName());
+            quantity.add(drink.getProductDrink().getLastRequest().getQuantity().toString());
+            drink.getProductDrink().getStock().setAmount(
+                   drink.getProductDrink().getStock().getAmount() -
+                   drink.getProductDrink().getLastRequest().getQuantity()
+                   );
+        }
+        
+        listOrderCaixa.setItems(items);
+        listProductQuantityCaixa.setItems(quantity);
+        
+        
+    }
+
+    private String getTotalValue() {
+        
+        List<Dessert> desserts = getClient((String) listNicknameClient.getSelectionModel().getSelectedItem())
+                .getLastOrder().getDesserts();
+        
+        List<Dish> dishes = getClient((String) listNicknameClient.getSelectionModel().getSelectedItem())
+                .getLastOrder().getDishes();
+        
+        List<Drink> drinks = getClient((String) listNicknameClient.getSelectionModel().getSelectedItem())
+                .getLastOrder().getDrinks();
+        Double totalValue = 0.0;
+        if(desserts != null)
+        for(Dessert dessert : desserts){
+            totalValue += dessert.getProductDessert().getPrice() * dessert.getProductDessert().getLastRequest().getQuantity();
+        }
+        
+        if(dishes != null)
+        for(Dish dish : dishes){
+            totalValue += dish.getProductDish().getPrice() * dish.getProductDish().getLastRequest().getQuantity();
+        }
+        
+        if(drinks != null)
+        for(Drink drink : drinks){
+            totalValue += drink.getProductDrink().getPrice() * drink.getProductDrink().getLastRequest().getQuantity();
+        }
+        
+        getClient((String) listNicknameClient.getSelectionModel().getSelectedItem()).getLastOrder().setTotalValue(totalValue);
+        
+        return totalValue.toString();
+    }
+    
+    @FXML
+    public void onActionConfirmPayment(){
+        Payment payment = new Payment();
+        if(cbFormOfPayment.getSelectionModel().getSelectedItem().equals("Dinheiro"))
+            payment.setType(Payment.MONEY);
+        else if(cbFormOfPayment.getSelectionModel().getSelectedItem().equals("Cartão de crédito"))
+            payment.setType(Payment.CARTAO_CREDITO);
+        else if(cbFormOfPayment.getSelectionModel().getSelectedItem().equals("Débito à vista"))
+            payment.setType(Payment.DEBIT);
+        
+        getClient((String) listNicknameClient.getSelectionModel().getSelectedItem()).getLastOrder().setPayment(payment);
+        
+        saveOrder();
+    }
+
+    private void saveOrder() {
+        
+        Client client = getClient((String) listNicknameClient.getSelectionModel().getSelectedItem());
+        Client clientExists = null;
+        if((clientExists = new ControllerClient().exists(client)) != null){
+            client.setIdClient(clientExists.getIdClient());
+            client.setEmployees(clientExists.getEmployees());
+        }
+        
+        Employee employee = new ControllerEmployee().getEmployee(this.employee.getLogin(), this.employee.getPassword());
+        
+        client.getLastEmployee().setIdEmployee(employee.getIdEmployee());
+        
+        new ControllerClient().save(client);
+        
+        new ControllerProduct().save(products);
+        products = new ControllerProduct().getProducts();
+
+        
+        clients.remove(getClient((String) listNicknameClient.getSelectionModel().getSelectedItem()));
+        listNameClient.getItems().remove(listNameClient.getSelectionModel().getSelectedItem());
+        listNicknameClient.getItems().remove(listNicknameClient.getSelectionModel().getSelectedItem());
+        listOrderCaixa.getItems().clear();
+        listProductQuantityCaixa.getItems().clear();
+        taObservationCaixa.clear();
+        lbTotalValue.setText("RS 0,00");
+        
+        JOptionPane.showMessageDialog(null, "Pedido gravado com sucesso!");
+    }
+    
     
 }

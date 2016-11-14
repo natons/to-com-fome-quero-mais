@@ -41,7 +41,6 @@ public class EmployeeScreen extends Application{
         
         Scene scene = new Scene(root);
     
-        stage.setTitle("Tela de Login");
         stage.setScene(scene);
         stage.show();
     }

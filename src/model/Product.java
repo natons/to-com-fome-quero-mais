@@ -13,9 +13,6 @@ public class Product {
     private String name;
     private Double price;
     
-    @Temporal(TemporalType.DATE)
-    private Date expirationDate;
-    
     @OneToOne(mappedBy = "productDessert")
     private Dessert dessert;
     
@@ -37,14 +34,13 @@ public class Product {
     public Product() {
     }
 
-    public Product(Integer idProduct, String name, Double price, Date expirationDate, Dessert dessert, Dish dish, Drink drink, List<Request> requests, Stock stock) {
+    public Product(Integer idProduct, String name, Double price, Dessert dessert, Drink drink, Dish dish, List<Request> requests, Stock stock) {
         this.idProduct = idProduct;
         this.name = name;
         this.price = price;
-        this.expirationDate = expirationDate;
         this.dessert = dessert;
-        this.dish = dish;
         this.drink = drink;
+        this.dish = dish;
         this.requests = requests;
         this.stock = stock;
     }
@@ -71,14 +67,6 @@ public class Product {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Date getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
     }
 
     public Dessert getDessert() {
@@ -131,5 +119,12 @@ public class Product {
     
     public int getQuantityRequest(){
         return requests.size();
+    }
+    
+    public Request getLastRequest(){
+        if(requests.isEmpty())
+            return new Request();
+        
+        return requests.get(requests.size() - 1);
     }
 }

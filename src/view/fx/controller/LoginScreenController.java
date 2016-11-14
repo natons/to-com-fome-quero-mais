@@ -12,15 +12,15 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import validator.Validator;
+import view.fx.AdminScreen;
 import view.fx.EmployeeScreen;
 
 /*
     Classe de interface gŕafica referente ao Login
 */
 
-public class LoginScreenController implements Initializable, ControlledScreen{
+public class LoginScreenController implements Initializable{
     
-    ScreensController myController;
     
     @FXML
     private Label lbMessageLogin;
@@ -78,10 +78,15 @@ public class LoginScreenController implements Initializable, ControlledScreen{
         if(!flagLogin || !flagPassword)
             return;
             
-        if(new ControllerEmployee().authenticate(tfLogin.getText(), pfPassword.getText()) 
-                || tfLogin.getText().equals("admin") && pfPassword.getText().equals("admin")){
+        if(new ControllerEmployee().authenticate(tfLogin.getText(), pfPassword.getText())){
             try {
                 new EmployeeScreen(tfLogin.getText(), pfPassword.getText()).start(stage);
+            } catch (Exception ex) {
+                Logger.getLogger(LoginScreenController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (tfLogin.getText().equals("admin") && pfPassword.getText().equals("admin")){
+            try {
+                new AdminScreen().start(stage);
             } catch (Exception ex) {
                 Logger.getLogger(LoginScreenController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -96,9 +101,5 @@ public class LoginScreenController implements Initializable, ControlledScreen{
     public void initialize(URL location, ResourceBundle resources) {
     }
 
-    @Override
-    public void setScreenParent(ScreensController screenPage) {
-        myController = screenPage;
-    }
 
 }

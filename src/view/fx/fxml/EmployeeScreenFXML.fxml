@@ -58,15 +58,16 @@
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
                 <ListView fx:id="listNameClient" layoutX="14.0" layoutY="39.0" onMouseClicked="#onMouseClickNameClient" prefHeight="517.0" prefWidth="148.0" />
-                <ListView fx:id="listNicknameClient" layoutX="161.0" layoutY="39.0" prefHeight="517.0" prefWidth="130.0" />
+                <ListView fx:id="listNicknameClient" layoutX="161.0" layoutY="39.0" onMouseClicked="#onMouseClickNicknameClient" prefHeight="517.0" prefWidth="130.0" />
                 <ListView id="listOrderQuantity" fx:id="listOrderCaixa" layoutX="360.0" layoutY="40.0" prefHeight="271.0" prefWidth="140.0" />
                 <ListView id="listQuantityProduct" fx:id="listProductQuantityCaixa" layoutX="499.0" layoutY="40.0" prefHeight="271.0" prefWidth="69.0" />
-                <ComboBox layoutX="598.0" layoutY="261.0" prefWidth="208.0">
+                <ComboBox layoutX="598.0" layoutY="261.0" prefWidth="208.0"  fx:id="cbFormOfPayment">
                   <items>
-                    <FXCollections fx:factory="observableArrayList">
-                      <String fx:value="Item 1" />
-                      <String fx:value="Item 2" />
-                      <String fx:value="Item 3" />
+                    <FXCollections fx:factory="observableArrayList"> 
+                      <String fx:value="Selecione forma de pagamento"/>
+                      <String fx:value="Dinheiro" />
+                      <String fx:value="Cartão de crédito" />
+                      <String fx:value="Débito à vista" />
                     </FXCollections>
                   </items>
                 </ComboBox>
@@ -75,14 +76,14 @@
                     <Font size="18.0" />
                   </font>
                 </Label>
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="609.0" layoutY="175.0" prefHeight="75.0" prefWidth="186.0" text="R$ 0,00" textAlignment="CENTER" textFill="#1000cc" wrapText="false">
+                <Label fx:id="lbTotalValue" alignment="CENTER" contentDisplay="CENTER" layoutX="609.0" layoutY="175.0" prefHeight="75.0" prefWidth="186.0" text="R$ 0,00" textAlignment="CENTER" textFill="#1000cc" wrapText="false">
                   <font>
                     <Font size="34.0" />
                   </font>
                 </Label>
-                <TextArea editable="false" layoutX="360.0" layoutY="365.0" prefHeight="190.0" prefWidth="208.0" wrapText="true" />
+                <TextArea fx:id="taObservationCaixa" editable="false" layoutX="360.0" layoutY="365.0" prefHeight="190.0" prefWidth="208.0" wrapText="true" />
                 <Label font="$x2" layoutX="360.0" layoutY="340.0" text="Observação:" />
-                <Button font="$x2" layoutX="598.0" layoutY="379.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="208.0" text="Confirmar Pagamento" />
+                <Button font="$x2" layoutX="598.0" layoutY="379.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="208.0" onAction="#onActionConfirmPayment" text="Confirmar Pagamento" />
               </children>
             </AnchorPane>
           </content>

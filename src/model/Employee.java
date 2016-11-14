@@ -14,10 +14,7 @@ public class Employee {
     private String login;
     private String password;
     
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "EMPLOYEE_CLIENT",
-            joinColumns = @JoinColumn(name = "IDEMPLOYEE_FK"),
-            inverseJoinColumns = @JoinColumn(name = "IDCLIENT_FK"))
+    @ManyToMany(mappedBy = "employees")
     private List<Client> clients;
     
     public Employee() {

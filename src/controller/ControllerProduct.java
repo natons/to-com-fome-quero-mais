@@ -9,4 +9,8 @@ public class ControllerProduct {
     public List<Product> getProducts(){
         return new ProductDAO().getAllElements();
     }
+
+    public void save(List<Product> products) {
+        new ProductDAO().save(products);
+    }
 }

@@ -13,4 +13,9 @@ public class ControllerEmployee {
         
         return new EmployeeDAO().findForObject(employee) != null;
     }
+    
+    public Employee getEmployee(String login, String password){
+        Employee employee = new Employee(login, password);
+        return new EmployeeDAO().findForObject(employee);
+    }
 }

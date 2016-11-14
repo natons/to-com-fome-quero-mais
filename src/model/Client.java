@@ -11,9 +11,13 @@ public class Client{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idClient;
     private String name;
+    @Column(unique = true)
     private String nickname;
     
-    @ManyToMany(mappedBy = "clients")
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "EMPLOYEE_CLIENT",
+            joinColumns = @JoinColumn(name = "IDCLIENT_FK"),
+            inverseJoinColumns = @JoinColumn(name = "IDEMPLOYEE_FK"))
     private List<Employee> employees;
     
     @OneToMany(mappedBy = "client")
@@ -107,6 +111,13 @@ public class Client{
             return new Order();
         
         return orders.get(orders.size() - 1);
+    }
+    
+    public Employee getLastEmployee(){
+        if(employees.isEmpty())
+            return new Employee();
+        
+        return employees.get(employees.size() - 1);
     }
     
     

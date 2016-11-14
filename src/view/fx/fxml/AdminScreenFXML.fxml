@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="604.0" prefWidth="822.9999000000025" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="view.fx.controller.AdminScreenController">
+  <children>
+    <Label layoutX="147.0" layoutY="32.0" text="Cadastrar Produto">
+      <font>
+        <Font size="16.0" fx:id="x1" />
+      </font>
+    </Label>
+    <Label layoutX="52.0" layoutY="81.0" text="Nome:" />
+    <Label layoutX="52.0" layoutY="127.0" text="Preço:" />
+    <Label layoutX="52.0" layoutY="176.0" text="Estoque Mínimo:" />
+    <Label layoutX="52.0" layoutY="221.0" text="Quantidade Disponível:" />
+    <TextField layoutX="212.0" layoutY="75.0" prefWidth="200.0" />
+    <TextField layoutX="212.0" layoutY="121.0" prefWidth="80.0" />
+    <TextField layoutX="212.0" layoutY="170.0" prefWidth="80.0" />
+    <TextField layoutX="212.0" layoutY="215.0" prefWidth="80.0" />
+    <Button layoutX="166.0" layoutY="268.0" mnemonicParsing="false" prefWidth="109.0" text="Cadastrar" />
+    <ListView layoutX="135.0" layoutY="367.0" prefHeight="223.0" prefWidth="240.0" />
+    <Label font="$x1" layoutX="220.0" layoutY="339.0" text="Produtos" />
+    <Label layoutX="434.0" layoutY="440.0" text="Estoque Mínimo:" />
+    <Label layoutX="434.0" layoutY="485.0" text="Quantidade Disponível:" />
+    <Button layoutX="543.0" layoutY="533.0" mnemonicParsing="false" text="Salvar" />
+    <TextField layoutX="613.0" layoutY="437.0" prefWidth="80.0" />
+    <TextField layoutX="613.0" layoutY="482.0" prefWidth="80.0" />
+    <Separator layoutX="-26.0" layoutY="313.0" prefHeight="30.0" prefWidth="849.0" />
+    <Separator layoutX="434.0" layoutY="0.0" orientation="VERTICAL" prefHeight="327.0" />
+    <ListView layoutX="517.0" layoutY="75.0" prefHeight="223.0" prefWidth="240.0" />
+    <Label font="$x1" layoutX="564.0" layoutY="32.0" text="Produtos Em Falta" />
+  </children>
+</AnchorPane>
